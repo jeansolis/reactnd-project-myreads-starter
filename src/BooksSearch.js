@@ -3,20 +3,47 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 
-class BookSearch extends Component {
-    static propTypes = {
+import * as BooksAPI from './BooksAPI'
 
+import Book from './Book'
+
+const MAX_RESULTS = 20
+
+class BookSearch extends Component {
+
+    static propTypes = {
     }
     
     state = {
-        query: ''
+        query: '',
+        books: []
+    }
+
+    componentDidMount() {
     }
 
     //State methods
+    updateSearch = (searchTerm) => {
+        this.setState({
+            query: searchTerm.trim()
+        })
+
+        if(searchTerm){
+            BooksAPI.search(searchTerm.trim(), MAX_RESULTS).then((books) => {
+                if(books){
+                    this.setState({
+                        books: (Array.isArray(books)) ? books : []
+                    })
+                }
+            })
+        }
+    }
 
     //Rendering
     render() {
-        const {query} = this.state
+        const {query, books} = this.state
+        
+        console.log(books)
 
         return (
             <div className="search-books">
@@ -31,13 +58,18 @@ class BookSearch extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
-
+                <input type="text" placeholder="Search by title or author" 
+                value={query}
+                onChange={(event) => this.updateSearch(event.target.value)}/>
               </div>
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-
+                  {books.map((book) => (
+                      <li key={book.id}>
+                          <Book book={book}/>
+                      </li>
+                  ))}
               </ol>
             </div>
           </div>
