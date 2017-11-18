@@ -21,6 +21,12 @@ class Bookshelf extends Component {
     }
 
     //State methods
+    onShelfChange(book) {
+        console.log('Ready to update State')
+        console.log(book)
+
+        console.log(this.setState)
+    }
 
     render() {
         //Destructure
@@ -42,7 +48,9 @@ class Bookshelf extends Component {
                     <ol className="books-grid">
                        {books.filter((book) => {
                            return book.shelf && new RegExp(shelfCurrentlyReading, 'i').test(book.shelf)
-                       }).map((book) => (<li key={book.id}><Book book={book} /></li>))}
+                       }).map((book) => (
+                           <li key={book.id}><Book book={book} onShelfChange={this.onShelfChange} /></li>
+                           ))}
                     </ol>
                   </div>
                 </div>
@@ -52,7 +60,9 @@ class Bookshelf extends Component {
                     <ol className="books-grid">
                         {books.filter((book) => {
                            return book.shelf && new RegExp(shelfWantToRead, 'i').test(book.shelf)
-                        }).map((book) => (<li key={book.id}><Book book={book} /></li>))}
+                        }).map((book) => (
+                           <li key={book.id}><Book book={book} onShelfChange={this.onShelfChange} /></li>
+                           ))}
                     </ol>
                   </div>
                 </div>
@@ -62,7 +72,9 @@ class Bookshelf extends Component {
                     <ol className="books-grid">
                         {books.filter((book) => {
                            return book.shelf && new RegExp(shelfRead, 'i').test(book.shelf)
-                        }).map((book) => (<li key={book.id}><Book book={book} /></li>))}
+                        }).map((book) => (
+                           <li key={book.id}><Book book={book} onShelfChange={this.onShelfChange} /></li>
+                           ))}
                     </ol>
                   </div>
                 </div>

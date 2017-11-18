@@ -39,8 +39,6 @@ class BookSearch extends Component {
     //Rendering
     render() {
         const {query, books} = this.state
-        
-        console.log(books)
 
         return (
             <div className="search-books">
