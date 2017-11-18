@@ -19,9 +19,6 @@ class BookSearch extends Component {
         books: []
     }
 
-    componentDidMount() {
-    }
-
     //State methods
     updateSearch = (searchTerm) => {
         this.setState({
