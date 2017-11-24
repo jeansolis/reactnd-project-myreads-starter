@@ -21,13 +21,27 @@ class Bookshelf extends Component {
     }
 
     //State methods
-    onShelfChange = (book)=>  {
-        console.log('Ready to update State')
-        console.log(book)
-
-        BooksAPI.getAll().then((books)=>{
-            this.setState({books})
-        })
+    onShelfChange = (book, newShelf)=>  {
+        if (newShelf.toLowerCase() === 'none'){
+            //Remove book from the bookshelf
+            this.setState((currentState) => ({
+                books: currentState.books.filter((b) => b.id !== book.id)
+            }))
+        } else {
+            //Update book's shelf
+            this.setState((currentState) => ({
+                books: currentState.books.map((b) => {
+                    if (b.id === book.id){
+                        //Update the shelf and return the updated book
+                        b.shelf = newShelf;
+                        return b;
+                    } else {
+                        //Return the same 
+                        return b;
+                    }
+                })
+            }))
+        }
     }
 
     render() {

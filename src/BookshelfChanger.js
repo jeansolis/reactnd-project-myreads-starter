@@ -17,7 +17,7 @@ class BookshelfChanger extends Component {
         console.log(this.props.book)
         BooksAPI.update(this.props.book, shelf).then((response) => {
             if(this.props.onShelfChange){
-                this.props.onShelfChange(this.props.book)
+                this.props.onShelfChange(this.props.book, shelf)
             }
         })
     }
