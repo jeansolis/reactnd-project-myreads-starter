@@ -21,19 +21,21 @@ class Bookshelf extends Component {
     }
 
     //State methods
-    onShelfChange(book) {
+    onShelfChange = (book)=>  {
         console.log('Ready to update State')
         console.log(book)
 
-        console.log(this.setState)
+        BooksAPI.getAll().then((books)=>{
+            this.setState({books})
+        })
     }
 
     render() {
         //Destructure
         const {books} = this.state
-        const shelfWantToRead = 'wantToRead'
-        const shelfCurrentlyReading = 'currentlyReading'
-        const shelfRead = 'read'
+        const shelfWantToRead = '^wantToRead$'
+        const shelfCurrentlyReading = '^currentlyReading$'
+        const shelfRead = '^read$'
 
         return (
             <div className="list-books">
