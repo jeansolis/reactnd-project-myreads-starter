@@ -35,10 +35,8 @@ class Bookshelf extends Component {
                         //Update the shelf and return the updated book
                         b.shelf = newShelf;
                         return b;
-                    } else {
-                        //Return the same 
-                        return b;
-                    }
+                    } 
+                    return b;
                 })
             }))
         }
