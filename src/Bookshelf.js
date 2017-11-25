@@ -11,43 +11,17 @@ class Bookshelf extends Component {
     }
 
     state = {
-        books: []
-    }
 
-    componentDidMount() {
-        BooksAPI.getAll().then((books)=>{
-            this.setState({books})
-        })
-    }
-
-    //State methods
-    onShelfChange = (book, newShelf)=>  {
-        if (newShelf.toLowerCase() === 'none'){
-            //Remove book from the bookshelf
-            this.setState((currentState) => ({
-                books: currentState.books.filter((b) => b.id !== book.id)
-            }))
-        } else {
-            //Update book's shelf
-            this.setState((currentState) => ({
-                books: currentState.books.map((b) => {
-                    if (b.id === book.id){
-                        //Update the shelf and return the updated book
-                        b.shelf = newShelf;
-                        return b;
-                    } 
-                    return b;
-                })
-            }))
-        }
-    }
+    }    
 
     render() {
         //Destructure
-        const {books} = this.state
+        const {books} = this.props
         const shelfWantToRead = '^wantToRead$'
         const shelfCurrentlyReading = '^currentlyReading$'
         const shelfRead = '^read$'
+
+        console.log(this.props.books)
 
         return (
             <div className="list-books">
@@ -63,7 +37,7 @@ class Bookshelf extends Component {
                        {books.filter((book) => {
                            return book.shelf && new RegExp(shelfCurrentlyReading, 'i').test(book.shelf)
                        }).map((book) => (
-                           <li key={book.id}><Book book={book} onShelfChange={this.onShelfChange} /></li>
+                           <li key={book.id}><Book book={book} onShelfChange={this.props.onShelfChange} /></li>
                            ))}
                     </ol>
                   </div>
@@ -75,7 +49,7 @@ class Bookshelf extends Component {
                         {books.filter((book) => {
                            return book.shelf && new RegExp(shelfWantToRead, 'i').test(book.shelf)
                         }).map((book) => (
-                           <li key={book.id}><Book book={book} onShelfChange={this.onShelfChange} /></li>
+                           <li key={book.id}><Book book={book} onShelfChange={this.props.onShelfChange} /></li>
                            ))}
                     </ol>
                   </div>
@@ -87,7 +61,7 @@ class Bookshelf extends Component {
                         {books.filter((book) => {
                            return book.shelf && new RegExp(shelfRead, 'i').test(book.shelf)
                         }).map((book) => (
-                           <li key={book.id}><Book book={book} onShelfChange={this.onShelfChange} /></li>
+                           <li key={book.id}><Book book={book} onShelfChange={this.props.onShelfChange} /></li>
                            ))}
                     </ol>
                   </div>
