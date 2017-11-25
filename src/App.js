@@ -19,9 +19,6 @@ class BooksApp extends React.Component {
 
   //State methods
   onShelfChange = (book, newShelf)=>  {
-    console.log('onShelfChange')
-    console.log(newShelf)
-    console.log(book.shelf)
     if (newShelf.toLowerCase() === 'none'){
         //Remove book from the bookshelf
         this.setState((currentState) => ({
@@ -42,7 +39,6 @@ class BooksApp extends React.Component {
           }))
         } else {
           //Add new book to the collection
-          console.log('Add new book')
           book.shelf = newShelf
           this.setState((currentState) => ({
             books: currentState.books.concat([book])

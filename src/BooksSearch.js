@@ -24,7 +24,7 @@ class BookSearch extends Component {
     //State methods
     updateSearch = (searchTerm) => {
         this.setState({
-            query: searchTerm.trim()
+            query: searchTerm
         })
 
         if(searchTerm){
@@ -46,6 +46,10 @@ class BookSearch extends Component {
                         books: booksResult
                     })
                 }
+            })
+        } else {
+            this.setState({
+                books: []
             })
         }
     }
