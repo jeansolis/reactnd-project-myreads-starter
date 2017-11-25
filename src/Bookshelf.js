@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import Book from './Book'
 import BookshelfChanger from './BookshelfChanger'
 import * as BooksAPI from './BooksAPI'
+import sortBy from 'sort-by'
 
 class Bookshelf extends Component {
 
@@ -21,7 +22,7 @@ class Bookshelf extends Component {
         const shelfCurrentlyReading = '^currentlyReading$'
         const shelfRead = '^read$'
 
-        console.log(this.props.books)
+        books.sort(sortBy('title'))
 
         return (
             <div className="list-books">
