@@ -26,7 +26,7 @@ class BooksApp extends React.Component {
             books: currentState.books.filter((b) => b.id !== book.id)
         }))
     } else {
-        if(book.shelf){
+        if(book.shelf !== 'none'){
           //Update book's shelf if exists
           this.setState((currentState) => ({
             books: currentState.books.map((b) => {

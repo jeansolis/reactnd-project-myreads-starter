@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom' 
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
+import _ from 'lodash'
 
 import * as BooksAPI from './BooksAPI'
 
@@ -26,10 +27,19 @@ class BookSearch extends Component {
         })
 
         if(searchTerm){
-            BooksAPI.search(searchTerm.trim(), MAX_RESULTS).then((books) => {
-                if(books){
+            BooksAPI.search(searchTerm.trim(), MAX_RESULTS).then((booksResult) => {
+                if(booksResult && Array.isArray(booksResult)){
+                    //Compare with current books in the bookshelf and update the shelf
+                    booksResult.forEach((newBook) => {
+                        newBook.shelf = 'none'
+                        this.props.books.forEach((book) => {
+                            if(newBook.id === book.id) {
+                                newBook.shelf = book.shelf
+                            }
+                        })
+                    })
                     this.setState({
-                        books: (Array.isArray(books)) ? books : []
+                        books: booksResult
                     })
                 }
             })

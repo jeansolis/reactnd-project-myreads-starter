@@ -13,10 +13,11 @@ class BookshelfChanger extends Component {
     }
 
     onShelfChange = (shelf) => {
-        console.log(shelf)
-        console.log(this.props.book)
-        console.log(this.props.onShelfChange)
         BooksAPI.update(this.props.book, shelf).then((response) => {
+            //Update current book shelf
+            this.props.book.shelf = shelf
+
+            //Update shelfbook status
             if(this.props.onShelfChange){
                 this.props.onShelfChange(this.props.book, shelf)
             }
@@ -32,7 +33,7 @@ class BookshelfChanger extends Component {
             <div className="book-shelf-changer">
             <select onChange={(event) => this.onShelfChange(event.target.value)}
                 value={this.props.book.shelf}>
-              <option value="none" disabled>Move to...</option>
+              <option value="" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
