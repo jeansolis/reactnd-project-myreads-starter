@@ -1,19 +1,15 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import Book from './Book'
-import BookshelfChanger from './BookshelfChanger'
-import * as BooksAPI from './BooksAPI'
+import PropTypes from 'prop-types'
 import sortBy from 'sort-by'
 
 class Bookshelf extends Component {
 
     static propTypes = {
-
+        books: PropTypes.array.isRequired,
+        onShelfChange: PropTypes.func.isRequired
     }
-
-    state = {
-
-    }    
 
     render() {
         //Destructure

@@ -8,24 +8,16 @@ class BookshelfChanger extends Component {
         onShelfChange: PropTypes.func.isRequired
     }
 
-    state = {
-
-    }
-
     onShelfChange = (shelf) => {
         BooksAPI.update(this.props.book, shelf).then((response) => {
-            //Update current book shelf
-            this.props.book.shelf = shelf
-
             //Update shelfbook status
             if(this.props.onShelfChange){
                 this.props.onShelfChange(this.props.book, shelf)
             }
-        })
-    }
 
-    evaluateShelf() {
-        console.log('testEvaluateShelf')
+            //Update current book shelf
+            this.props.book.shelf = shelf
+        })
     }
 
     render() {

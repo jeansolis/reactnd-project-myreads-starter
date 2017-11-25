@@ -12,6 +12,8 @@ const MAX_RESULTS = 20
 class BookSearch extends Component {
 
     static propTypes = {
+        books: PropTypes.array.isRequired,
+        onShelfChange: PropTypes.func.isRequired
     }
     
     state = {
