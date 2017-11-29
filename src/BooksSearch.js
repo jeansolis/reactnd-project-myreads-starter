@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom' 
 import PropTypes from 'prop-types'
 import sortBy from 'sort-by'
-
 import * as BooksAPI from './BooksAPI'
-
 import Book from './Book'
+
+var debounce = require('lodash.debounce')
 
 const MAX_RESULTS = 20
 
@@ -22,11 +22,7 @@ class BookSearch extends Component {
     }
 
     //State methods
-    updateSearch = (searchTerm) => {
-        this.setState({
-            query: searchTerm
-        })
-
+    updateSearch = debounce((searchTerm) => {
         if(searchTerm){
             BooksAPI.search(searchTerm.trim(), MAX_RESULTS).then((booksResult) => {
                 if(booksResult && Array.isArray(booksResult)){
@@ -45,6 +41,11 @@ class BookSearch extends Component {
                     this.setState({
                         books: booksResult
                     })
+                } else
+                {
+                    this.setState({
+                        books: []
+                    })
                 }
             })
         } else {
@@ -52,7 +53,7 @@ class BookSearch extends Component {
                 books: []
             })
         }
-    }
+    }, 100);
 
     //Rendering
     render() {
@@ -71,9 +72,16 @@ class BookSearch extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author" 
-                value={query}
-                onChange={(event) => this.updateSearch(event.target.value)}/>
+                    <input type="text" placeholder="Search by title or author" 
+                    value={query}
+                    onChange={(event) => {
+                        //Update the search field right away
+                        this.setState({
+                            query: event.target.value
+                        })
+                        //Call the debounced search method
+                        this.updateSearch(event.target.value)}
+                    }/>
               </div>
             </div>
             <div className="search-books-results">
