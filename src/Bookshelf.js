@@ -14,9 +14,19 @@ class Bookshelf extends Component {
     render() {
         //Destructure
         const {books} = this.props
-        const shelfWantToRead = '^wantToRead$'
-        const shelfCurrentlyReading = '^currentlyReading$'
-        const shelfRead = '^read$'
+        
+        const shelfs = [{
+          shelf: '^currentlyReading$',
+          title: 'Currently Reading'
+        },
+        {
+          shelf: '^wantToRead$',
+          title: 'Want to Read'
+        },
+        {
+          shelf: '^read$',
+          title: 'Read'
+        }]
 
         books.sort(sortBy('title'))
 
@@ -27,42 +37,20 @@ class Bookshelf extends Component {
             </div>
             <div className="list-books-content">
               <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                       {books.filter((book) => {
-                           return book.shelf && new RegExp(shelfCurrentlyReading, 'i').test(book.shelf)
-                       }).map((book) => (
-                           <li key={book.id}><Book book={book} onShelfChange={this.props.onShelfChange} /></li>
-                           ))}
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
+                {shelfs.map((shelf) => (
+                  <div className="bookshelf">
+                    <h2 className="bookshelf-title">{shelf.title}</h2>
+                    <div className="bookshelf-books">
+                      <ol className="books-grid">
                         {books.filter((book) => {
-                           return book.shelf && new RegExp(shelfWantToRead, 'i').test(book.shelf)
+                            return book.shelf && new RegExp(shelf.shelf, 'i').test(book.shelf)
                         }).map((book) => (
-                           <li key={book.id}><Book book={book} onShelfChange={this.props.onShelfChange} /></li>
-                           ))}
-                    </ol>
+                            <li key={book.id}><Book book={book} onShelfChange={this.props.onShelfChange} /></li>
+                            ))}
+                      </ol>
+                    </div>
                   </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                        {books.filter((book) => {
-                           return book.shelf && new RegExp(shelfRead, 'i').test(book.shelf)
-                        }).map((book) => (
-                           <li key={book.id}><Book book={book} onShelfChange={this.props.onShelfChange} /></li>
-                           ))}
-                    </ol>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             <div className="open-search">
