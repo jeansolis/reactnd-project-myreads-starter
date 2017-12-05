@@ -38,7 +38,7 @@ class Bookshelf extends Component {
             <div className="list-books-content">
               <div>
                 {shelfs.map((shelf) => (
-                  <div className="bookshelf">
+                  <div className="bookshelf" key={shelf.shelf}>
                     <h2 className="bookshelf-title">{shelf.title}</h2>
                     <div className="bookshelf-books">
                       <ol className="books-grid">
