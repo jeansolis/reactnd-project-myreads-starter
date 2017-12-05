@@ -18,7 +18,7 @@ class BooksApp extends React.Component {
   }
 
   //State methods
-  onShelfChange = (book, newShelf)=>  {
+  ShelfChange = (book, newShelf)=>  {
     if (newShelf.toLowerCase() === 'none'){
         //Remove book from the bookshelf
         this.setState((currentState) => ({
@@ -52,11 +52,11 @@ class BooksApp extends React.Component {
       <div className="app">
         
         <Route exact path="/" render={() => (
-          <Bookshelf books={this.state.books} onShelfChange={this.onShelfChange} />
+          <Bookshelf books={this.state.books} onShelfChange={this.ShelfChange} />
         )} />
         
         <Route path="/search" render={(history) => (
-          <BooksSearch books={this.state.books} onShelfChange={this.onShelfChange} />
+          <BooksSearch books={this.state.books} onShelfChange={this.ShelfChange} />
         )} />
 
       </div>
