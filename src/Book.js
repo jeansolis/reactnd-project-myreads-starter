@@ -7,8 +7,7 @@ function Book(props){
     return (
         <div className="book">
             <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 192, 
-                backgroundImage: 'url("' + ((book.imageLinks && book.imageLinks.smallThumbnail) ? book.imageLinks.smallThumbnail : '') + '")' }} >
+                <div className="book-cover" style={{backgroundImage: 'url("' + ((book.imageLinks && book.imageLinks.smallThumbnail) ? book.imageLinks.smallThumbnail : '') + '")' }} >
                 </div>
                 <BookshelfChanger book={book} onShelfChange={props.onShelfChange} />
             </div>
